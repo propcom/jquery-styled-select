@@ -26,3 +26,22 @@ The API contains:
 * setVal: sets the value of the select itself
 * setText: sets the displayed text but not the value
 * refreshText: sets the displayed text by interrogating the value
+
+### Events
+
+The plugin listens to two events, `change` and `change.styled-select`. The former
+is obviously triggered by the browser, but the latter is one you can trigger
+manually in order to have the select update. This allows you to refresh any select
+element without having to test whether the API exists in its data object.
+
+	// This requires you to know about the plugin
+	if (api = $(selector).data('styled-select')) {
+	    api.setVal(value);
+	}
+
+	// This works regardless, and doesn't end up in a funny loop
+	$(selector).val(value).trigger('change.styled-select')
+
+However! If you have kept hold of your original objects, the `val()` method on
+those is augmented to automatically refresh anyway. This is simply a utility,
+and probably should not be relied on.
