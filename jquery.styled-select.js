@@ -2,17 +2,28 @@
  * See https://github.com/propcom/jquery-styled-select for the README
  */
 (function($){
-	function StyledSelect($select) {
-		var $selectWrap = $('<div class="select-style-wrap" />'),
-			$selectSkin = $('<span class="select-style" />'),
+	function StyledSelect($select, options) {
+		var $selectWrap = $('<div />'),
+			$selectSkin = $('<span />'),
 			self = this;
 
+		options = $.extend({
+			wrapClass: 'select-style-wrap',
+			skinClass: 'select-style',
+			selectClass: 'styled-select'
+		}, options);
+
 		this.currVal = $('option:selected', $select).text();
+		$selectWrap
+			.addClass(options.wrapClass);
+
 		$select
-			.addClass('styled-select')
+			.addClass(options.selectClass)
 			.wrap($selectWrap);
+		
 		$selectSkin
 			.text(this.currVal)
+			.addClass(options.skinClass)
 			.insertAfter($select);
 
 		this.select = $select;
@@ -47,17 +58,17 @@
 		}
 	};
 
-	$.fn.styledSelect = function() {
+	$.fn.styledSelect = function(options) {
 		var $this = $(this);
 
 		if ($this.length > 1) {
 			$this.each(function() {
-				$(this).styledSelect();
+				$(this).styledSelect(options);
 			});
 			return $this;
 		}
 		
-		var ss = new StyledSelect($this);
+		var ss = new StyledSelect($this, options);
 		$this.data('styled-select', ss);
 		return $this;
 	}

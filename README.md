@@ -2,11 +2,20 @@
 
 ### jQuery utility to style up select boxes
  
-    $(selector).styledSelect()
+    $(selector).styledSelect();
+
+	// These are the defaults
+    $(selector).styledSelect({
+		wrapStyle: 'select-style-wrap',
+		skinStyle: 'select-style',
+		selectStyle: 'styled-select'
+	});
  
 Creates a wrapping div and a span. The span is kept up to date with the value.
 
-### styles
+### Styles
+
+The following styles are applied by default.
 
 * The select itself gets the class `styled-select`.
 * The div is `select-style-wrap`.
@@ -14,6 +23,12 @@ Creates a wrapping div and a span. The span is kept up to date with the value.
 
 Users should ensure that `styled-select` is `opacity: 0` and that it has a higher 
 `z-index` than `select-style`. Box sizing may also be necessary.
+
+The styles can be overridden by passing an object to the plugin:
+
+* wrapStyle changes `select-style-wrap`
+* skinStyle changes `select-style`
+* selectStyle changes `styled-select`
 
 ### API
 
